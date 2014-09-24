@@ -1,7 +1,7 @@
 package controllers
 
-import domain.Product
-import domain.Products
+import models.Product
+import models.DAO._
 import play.api.mvc._
 import play.api.libs.json._
 
