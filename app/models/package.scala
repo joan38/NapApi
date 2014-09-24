@@ -8,7 +8,7 @@ package object models {
    * Default DAO definition
    */
   private[models] class DAO
-    extends ProductComponent {
+    extends ApiProductComponent {
   }
 
   /**
