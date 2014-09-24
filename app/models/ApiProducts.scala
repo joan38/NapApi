@@ -21,11 +21,9 @@ case class ApiProduct(id: Int,
 trait ApiProductComponent {
 
   object ApiProducts {
-    private val ApiUrl = "http://lad-api.net-a-porter.com/product/summaries?business=NAP&categoryIds=2&country=GB"
-
     def filterByName(query: String) = all map (_ filter (_.name split "-| " contains query))
 
-    def all = WS.url(ApiUrl).get() map { response =>
+    def all = WS.url(current.configuration.getString("application.api.url").get).get() map { response =>
       (response.json \ "data").as[Array[ApiProduct]]
     }
   }
