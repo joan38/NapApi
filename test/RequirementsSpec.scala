@@ -11,13 +11,11 @@ import play.api.test._
 class RequirementsSpec extends Specification with JsonMatchers {
 
   object CheckJson {
-    def apply(query: Option[String], expected: JsValue) = {
-      running(FakeApplication()) {
-        val result = controllers.Application.queryProducts(query)(FakeRequest())
-        status(result) mustEqual OK
-        contentType(result) must beSome("application/json")
-        contentAsJson(result) mustEqual expected
-      }
+    def apply(query: Option[String], expected: JsValue) = running(FakeApplication()) {
+      val result = controllers.Application.queryProducts(query)(FakeRequest())
+      status(result) mustEqual OK
+      contentType(result) must beSome("application/json")
+      contentAsJson(result) mustEqual expected
     }
   }
 
@@ -42,13 +40,11 @@ class RequirementsSpec extends Specification with JsonMatchers {
 
     "return all products" in {
 
-      "query with no parameter" in {
-        running(FakeApplication()) {
-          val result = controllers.Application.queryProducts(None)(FakeRequest())
-          status(result) mustEqual OK
-          contentType(result) must beSome("application/json")
-          contentAsJson(result).as[Array[JsValue]] must haveSize(1000)
-        }
+      "query with no parameter" in running(FakeApplication()) {
+        val result = controllers.Application.queryProducts(None)(FakeRequest())
+        status(result) mustEqual OK
+        contentType(result) must beSome("application/json")
+        contentAsJson(result).as[Array[JsValue]] must haveSize(1000)
       }
     }
 
